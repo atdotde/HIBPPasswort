@@ -26,8 +26,13 @@ print "SHA-1: $sha\n";
 
 $answer = `curl -s https://api.pwnedpasswords.com/range/$first`;
 
+my $hits = 0;
+
 foreach $line(split /\n/, $answer) {
   if ($line =~ /$rest/i) {
-    print "\nFound: $line\n";
+	  print "\nFound: $line\n";
+	  ++$hits;
   }
 }
+
+exit($hits);
