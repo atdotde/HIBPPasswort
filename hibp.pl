@@ -10,7 +10,6 @@
 
 # Functional style
 use Digest::SHA1  qw(sha1 sha1_hex sha1_base64);
-use LWP::Simple;
 use Term::ReadKey;
 
 print "Password to check:\n";
@@ -25,7 +24,7 @@ $rest = substr($sha, 5);
 
 print "SHA-1: $sha\n";
 
-$answer = `curl https://api.pwnedpasswords.com/range/$first`;
+$answer = `curl -s https://api.pwnedpasswords.com/range/$first`;
 
 foreach $line(split /\n/, $answer) {
   if ($line =~ /$rest/i) {
