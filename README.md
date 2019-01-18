@@ -24,3 +24,11 @@ the hashes it has passwords of starting with those five characters.
 
 This perl script automates this and compares your locally computed
 hash to those in the database.
+
+To run
+
+<code>
+chmod a+x ./hibp.pl
+
+./hibp.pl
+</code>
