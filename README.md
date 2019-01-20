@@ -32,3 +32,5 @@ chmod a+x ./hibp.pl
 
 ./hibp.pl
 </code>
+
+It runs in a infinite loop until you enter an empty password.

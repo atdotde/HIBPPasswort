@@ -16,29 +16,32 @@ use HTTP::Tiny;
 # Hier Proxy eintragen und Kommentarzeichen '#' entfernen
 # $proxy = "http://myhost:3128";
 
-print "Password to check:\n";
-ReadMode ( 'noecho' );
-my $pw = <STDIN>;
-ReadMode ( 'normal' );    #Back to your regularly scheduled program
-chomp $pw;
+while(1) {
+  print "Password to check:\n";
+  ReadMode ( 'noecho' );
+  my $pw = <STDIN>;
+  ReadMode ( 'normal' );    #Back to your regularly scheduled program
+  chomp $pw;
 
-$sha = sha1_hex($pw);
-$first = substr($sha, 0, 5);
-$rest = substr($sha, 5);
-
-print "SHA-1: $sha\n";
-
-$url = "https://api.pwnedpasswords.com/range/$first";
-$response = HTTP::Tiny->new(proxy => $proxy)->get($url);
-die "Cannot reach API" unless $response->{success};
-$answer = $response->{content};
-
-my $hits = 0;
-
-foreach $line(split /\n/, $answer) {
-  if ($line =~ /$rest/i) {
-	  print "\nFound: $line\n";
-	  ++$hits;
+  last unless $pw =~ /\S/;
+  $sha = sha1_hex($pw);
+  $first = substr($sha, 0, 5);
+  $rest = substr($sha, 5);
+  
+  print "SHA-1: $sha\n";
+  
+  $url = "https://api.pwnedpasswords.com/range/$first";
+  $response = HTTP::Tiny->new(proxy => $proxy)->get($url);
+  die "Cannot reach API" unless $response->{success};
+  $answer = $response->{content};
+  
+  my $hits = 0;
+  
+  foreach $line(split /\n/, $answer) {
+    if ($line =~ /$rest/i) {
+      print "\nFound: $line\n";
+      ++$hits;
+    }
   }
 }
 
