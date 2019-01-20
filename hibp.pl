@@ -13,6 +13,9 @@ use Digest::SHA1  qw(sha1 sha1_hex sha1_base64);
 use Term::ReadKey;
 use HTTP::Tiny;
 
+# Hier Proxy eintragen und Kommentarzeichen '#' entfernen
+# $proxy = "http://myhost:3128";
+
 print "Password to check:\n";
 ReadMode ( 'noecho' );
 my $pw = <STDIN>;
@@ -26,7 +29,7 @@ $rest = substr($sha, 5);
 print "SHA-1: $sha\n";
 
 $url = "https://api.pwnedpasswords.com/range/$first";
-$response = HTTP::Tiny->new->get($url);
+$response = HTTP::Tiny->new(proxy => $proxy)->get($url);
 die "Cannot reach API" unless $response->{success};
 $answer = $response->{content};
 
