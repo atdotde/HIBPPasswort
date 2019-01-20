@@ -11,6 +11,7 @@
 # Functional style
 use Digest::SHA1  qw(sha1 sha1_hex sha1_base64);
 use Term::ReadKey;
+use HTTP::Tiny;
 
 print "Password to check:\n";
 ReadMode ( 'noecho' );
@@ -24,7 +25,10 @@ $rest = substr($sha, 5);
 
 print "SHA-1: $sha\n";
 
-$answer = `curl -s https://api.pwnedpasswords.com/range/$first`;
+$url = "https://api.pwnedpasswords.com/range/$first";
+$response = HTTP::Tiny->new->get($url);
+die "Cannot reach API" unless $response->{success};
+$answer = $response->{content};
 
 my $hits = 0;
 
