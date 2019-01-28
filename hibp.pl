@@ -9,7 +9,7 @@
 
 
 # Functional style
-use Digest::SHA1  qw(sha1 sha1_hex sha1_base64);
+use Digest::SHA  qw(sha1 sha1_hex sha1_base64);
 use Term::ReadKey;
 use HTTP::Tiny;
 
@@ -18,7 +18,7 @@ use HTTP::Tiny;
 
 while(1) {
   print "Password to check:\n";
-  ReadMode ( 'noecho' );
+#  ReadMode ( 'noecho' );
   my $pw = <STDIN>;
   ReadMode ( 'normal' );    #Back to your regularly scheduled program
   chomp $pw;
