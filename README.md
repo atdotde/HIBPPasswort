@@ -34,3 +34,11 @@ chmod a+x ./hibp.pl
 </code>
 
 It runs in a infinite loop until you enter an empty password.
+
+
+## Dependencies
+
+This script depends on the Digest::SHA and the Term::Readkey perl modules.
+On Debian-based systems (Debian, Ubuntu, Mint etc.) they can be installed by
+
+	sudo apt install libdigest-sha-perl libterm-readkey-perl
